@@ -1,0 +1,7 @@
+---
+- name: deploy key
+  hosts: k8sworker
+  gather_facts: yes
+
+  roles: 
+    - kubernetes_upgrade_worker_v1.24.7

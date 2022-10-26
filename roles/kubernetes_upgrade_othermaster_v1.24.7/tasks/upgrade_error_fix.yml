@@ -1,0 +1,23 @@
+---
+  - name: update kubeadm-flags.env
+    copy:
+      src: kubeadm-flags.env
+      dest: /var/lib/kubelet/kubeadm-flags.env
+
+  - name: update /etc/crictl.yaml
+    copy:
+      src: crictl.yaml
+      dest: /etc/crictl.yaml
+  - name: containerd default config
+    shell: containerd config default > /etc/containerd/config.toml
+
+  - name: restart containerd service
+    service:
+      name: containerd
+      state: restarted
+
+  - name: restart kubelet service
+    service:
+      name: kubelet
+      state: restarted
+

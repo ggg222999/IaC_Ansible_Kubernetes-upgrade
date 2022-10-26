@@ -1,0 +1,6 @@
+---
+  - name: upgrade first master nodes
+    include: upgrade_first-master.yml
+
+  - name: fix upgrade error from 1.23.3 to 1.24.7
+    include: upgrade_error_fix.yml

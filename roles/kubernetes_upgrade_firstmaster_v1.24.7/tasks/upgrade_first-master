@@ -1,0 +1,30 @@
+---
+  - name: Upgrade the kubeadm to the target version
+    yum:
+      name: "{{ item }}
+      state: present
+    with_itmes:
+    - kubeadm-1.24.7
+
+# Run kubeadm upgrade plan to confirm the upgrade plan
+  - name: Apply upgrae plan
+    shell: kubeadm upgrade apply v1.24.7
+
+
+  - name: Upgrade the kubeadm to the target version
+    yum:
+      name: "{{ item }}
+      state: present
+    with_itmes:
+    - kubelet-1.24.7
+    - kubectl-1.24.7
+
+  - name: reload daemon
+    shell: systemctl daemon-reload
+
+  - name: restart kubelet service
+    service:
+      name: "{{ item }}"
+      state: restart
+    with_itmes:
+    - kubelet

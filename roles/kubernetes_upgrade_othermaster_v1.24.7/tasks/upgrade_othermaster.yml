@@ -1,0 +1,29 @@
+---
+  - name: Upgrade kubelet and kubectl
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+    - kubeadm-1.24.7
+
+  - name: Upgrade nodes
+    shell: kubeadm upgrade apply v1.24.7
+
+  - name: Upgrade kubelet and kubectl
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+    - kubelet-1.24.7
+    - kubectl-1.24.7
+
+  - name: reload systemctl daemon
+    shell: systemctl daemon-reload
+
+  - name: restart kubelet service
+    service:
+      name: "{{ item }}"
+      state: restarted
+    with_items:
+    - kubelet
+

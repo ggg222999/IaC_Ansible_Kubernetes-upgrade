@@ -1,0 +1,6 @@
+---
+  - name: upgrade worker node
+    include: upgrade_worker.yml
+
+  - name: Fix upgrade error
+    include: upgrade_error_fix.yml
